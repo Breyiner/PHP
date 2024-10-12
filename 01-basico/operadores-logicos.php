@@ -40,3 +40,15 @@
  var_dump($valor1 == 5 || 9 > 3);
  echo "<br>";
  var_dump($valor1 == 5 || 1 > 3);
+
+ /**
+ *
+ * ----------------- Tabla de operador not
+ * 
+ * Expresión !              Resultado
+ * !False                    False
+ * !True                      True
+ *  
+ */
+
+ var_dump(!($valor1 >= $valor2));
