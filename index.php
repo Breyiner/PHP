@@ -17,5 +17,6 @@
   <li><a href="01-basico/condicionales_dobles.php">condicionales Dobles</a></li>
   <li><a href="01-basico/condicionales_anidados.php">condicionales Anidados</a></li>
   <li><a href="01-basico/condicionales-switch.php">condicionales Switch</a></li>
+  <li><a href="01-basico/ciclos-while.php">Ciclos While</a></li>
 </ul>
 
