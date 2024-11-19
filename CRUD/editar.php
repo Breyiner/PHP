@@ -23,13 +23,14 @@ $conexionLenguajes = $conexion->prepare($sqlLenguajes);
 $conexionLenguajes->execute();
 $lenguajes = $conexionLenguajes->fetchAll();
 
-// echo "<pre>";
-// print_r($generos);
-// echo "</pre>";
+echo "<pre>";
+print_r($_GET['id']);
+echo "</pre>";
+
 
 ?>
 
-<form action="controlador.php" method="post">
+<form action="" method="get">
     <fieldset>
         <legend>
             <h2>Prueba MySQL</h2>
