@@ -1,52 +1,60 @@
-
 <?php
 require("conexion.php");
 $db = new Conexion();
 $conexion = $db->getConexion();
 
+$nombre = $_REQUEST['name'];
+$apellido = $_REQUEST['lastName'];
+$correo = $_REQUEST['email'];
+$fecha_nacimiento = $_REQUEST['fecha_nacimiento'];
+$id_genero = $_REQUEST['id_genero'];
+$id_ciudad = $_REQUEST['id_ciudad'];
+$lenguajes = $_REQUEST['id_lenguaje'];
+$usuario_id = $_REQUEST['id_usuario'];
 
-// $lenguajes = $_POST['id_lenguaje'];
-// $usuario = "hola ";
-// echo "<pre>";
-// print_r($lenguajes);
-// echo "</pre>";
+try {
+    
+    $conexion->beginTransaction();
 
+    $sqlUpdate = "UPDATE usuarios SET nombre = :nombre, apellido = :apellido, correo = :correo, fecha_nacimiento = :fecha_nacimiento, id_genero = :id_genero, id_ciudad = :id_ciudad WHERE id_usuario = :usuario_id";
+    
+    $conexionUpdate = $conexion->prepare($sqlUpdate);
+    
+    $conexionUpdate->bindParam(':nombre', $nombre);
+    $conexionUpdate->bindParam(':apellido', $apellido);
+    $conexionUpdate->bindParam(':correo', $correo);
+    $conexionUpdate->bindParam(':fecha_nacimiento', $fecha_nacimiento);
+    $conexionUpdate->bindParam(':id_genero', $id_genero);
+    $conexionUpdate->bindParam(':id_ciudad', $id_ciudad);
+    $conexionUpdate->bindParam(':usuario_id', $usuario_id);
+    $conexionUpdate->execute();
 
-// foreach ($lenguajes as $key => $value) {
-//     echo $usuario. $key;
-// }
+    // eliminar los datos para volver a crearlos
+    $sqlEliminarLenguaje = "DELETE FROM lenguaje_usuario where id_usuario = :id_usuario";
+    $conexionEliminarLenguaje = $conexion->prepare($sqlEliminarLenguaje);
+    $conexionEliminarLenguaje->bindParam(':id_usuario', $usuario_id);
 
-$sqlUsuarios = "SELECT u.id_usuario, u.nombre, u.apellido, u.correo, u.fecha_nacimiento, g.genero, c.ciudad FROM usuarios u INNER JOIN generos g ON u.id_genero = g.id_genero INNER JOIN ciudades c ON u.id_ciudad = c.id_ciudad ORDER BY u.id_usuario;";
-$conexionUsuarios = $conexion->prepare($sqlUsuarios);
-$conexionUsuarios->execute();
-$usuarios = $conexionUsuarios->fetchAll();
-?>
+    $conexionEliminarLenguaje->execute();
 
-<table border="1">
-    <tr>
-        <th>ID</th>
-        <th>Nombres</th>
-        <th>Apellidos</th>
-        <th>Correo</th>
-        <th>Fecha De Nacimiento</th>
-        <th>Genero</th>
-        <th>Ciudad</th>
-    </tr>
+    // se insertan de nuevo los lenguajes que el usuario selecciones
+    $sqlLenguajeUsuario = "INSERT INTO lenguaje_usuario (id_usuario, id_lenguaje) VALUES (:id_usuario, :id_lenguaje)";
 
-    <?php
-    foreach ($usuarios as $key => $value) {
-    ?>
-    <tr>
-        <td><?=$value['id_usuario'];?></td>
-        <td><?=$value['nombre'];?></td>
-        <td><?=$value['apellido'];?></td>
-        <td><?=$value['correo'];?></td>
-        <td><?=$value['fecha_nacimiento'];?></td>
-        <td><?=$value['genero'];?></td>
-        <td><?=$value['ciudad'];?></td>
-        <td><a href="editar.php?id=<?=$value['id_usuario']?>">Editar</a></td>
-    </tr>
-    <?php
+    $conexionLenguajeUsuario = $conexion->prepare($sqlLenguajeUsuario);
+
+    foreach ($lenguajes as $key => $value) {
+        $conexionLenguajeUsuario->bindParam(':id_usuario', $usuario_id);
+        $conexionLenguajeUsuario->bindParam(':id_lenguaje', $value);
+        $conexionLenguajeUsuario->execute();
     }
-    ?>
-</table>
+
+    $conexion->commit();
+
+    header('location: vista_admin.php');
+
+} catch (Exception $e) {
+
+  $conexion->rollBack();
+
+  echo "La tarea falló con éxito. Motivo -->" . $e->getMessage();
+
+}

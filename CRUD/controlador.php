@@ -6,13 +6,13 @@ $conexion = $db->getConexion();
 $nombre = $_POST['name'];
 $apellido = $_POST['lastName'];
 $correo = $_POST['email'];
-$fechaNacimiento = $_POST['fecha_nacimiento'];
-$ciudad = $_POST['id_ciudad'];
-$genero = $_POST['id_genero'];
+$fecha_nacimiento = $_POST['fecha_nacimiento'];
+$id_ciudad = $_POST['id_ciudad'];
+$id_genero = $_POST['id_genero'];
 $lenguajes = $_POST['id_lenguaje'];
 
 // Realizar inserción de datos
-$sqlInsertar = "INSERT INTO usuarios (nombre, apellido, correo, fecha_nacimiento, id_ciudad, id_genero) VALUES (:nombre, :apellido, :correo, :fecha_nacimiento, :ciudad, :genero)";
+$sqlInsertar = "INSERT INTO usuarios (nombre, apellido, correo, fecha_nacimiento, id_ciudad, id_genero) VALUES (:nombre, :apellido, :correo, :fecha_nacimiento, :id_ciudad, :id_genero)";
 
 $conexionInsertar = $conexion->prepare($sqlInsertar);
 
@@ -20,9 +20,9 @@ $conexionInsertar = $conexion->prepare($sqlInsertar);
 $conexionInsertar->bindParam(':nombre', $nombre);
 $conexionInsertar->bindParam(':apellido', $apellido);
 $conexionInsertar->bindParam(':correo', $correo);
-$conexionInsertar->bindParam(':fecha_nacimiento', $fechaNacimiento);
-$conexionInsertar->bindParam(':ciudad', $ciudad);
-$conexionInsertar->bindParam(':genero', $genero);
+$conexionInsertar->bindParam(':fecha_nacimiento', $fecha_nacimiento);
+$conexionInsertar->bindParam(':id_ciudad', $id_ciudad);
+$conexionInsertar->bindParam(':id_genero', $id_genero);
 $conexionInsertar->execute();
 
 // Extraer id del usuario
@@ -39,4 +39,4 @@ foreach ($lenguajes as $key => $value) {
     $conexionLenguajeUsuario->execute();
 }
 
-echo "Envío exitoso";
+header('Location: vista_admin.php');

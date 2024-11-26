@@ -5,6 +5,8 @@ require('conexion.php');
 $db = new Conexion();
 $conexion = $db->getConexion();
 
+$usuario_id = $_REQUEST['id'];
+
 // consulta ciudades
 $sqlCiudades = "SELECT * FROM ciudades";
 $conexionCiudades = $conexion->prepare($sqlCiudades);
@@ -23,12 +25,6 @@ $conexionLenguajes = $conexion->prepare($sqlLenguajes);
 $conexionLenguajes->execute();
 $lenguajes = $conexionLenguajes->fetchAll();
 
-echo "<pre>";
-print_r($_GET['id']);
-echo "</pre>";
-
-$usuario_id = $_GET['id'];
-
 // Consulta de usuario a traves del id
 $sqlUsuarios = "SELECT * FROM usuarios where id_usuario = $usuario_id";
 $conexionUsuarios = $conexion->prepare($sqlUsuarios);
@@ -41,18 +37,14 @@ $conexionEditLenguajes = $conexion->prepare($sqlEditLenguajes);
 $conexionEditLenguajes->execute();
 $editLenguajes = $conexionEditLenguajes->fetchAll();
 
-echo "<pre>";
-print_r($usuarios);
-print_r($editLenguajes);
-echo "</pre>";
-
 ?>
 
-<form action="update.php" method="post">
+<form action="prueba.php" method="post">
     <fieldset>
         <legend>
             <h2>Prueba MySQL</h2>
         </legend>
+        <input type="hidden" name="id_usuario" value="<?=$usuario_id?>">
         <label for="name">Nombre:
             <input type="text" name="name" id="name" placeholder="Nombre" value="<?= $usuarios[0]['nombre']?>">
         </label>
@@ -99,10 +91,12 @@ echo "</pre>";
                     ?>
                     <label for="genero_<?= $value['id_genero']?>">
                         <input type="radio" name="id_genero" id="genero_<?= $value['id_genero']?>" value="<?= $value['id_genero']?>" 
-                        <?php if ($usuarios[0]['id_genero'] == $value['id_genero']) 
+                        <?php 
+                        if ($usuarios[0]['id_genero'] == $value['id_genero']) 
                         { 
                             ?> checked <?php 
-                        } ?>>
+                        } 
+                        ?>>
                         <?= $value['genero']?>
                     </label>
                     <?php
@@ -135,8 +129,7 @@ echo "</pre>";
             ?>
         </div>
         <br>
-        <a href="update.php?id=<?=$usuario_id?>">
-            <input type="submit" value="Enviar">
-        </a>
+        <input type="submit" value="Enviar">
+        <a href="vista_admin.php">Volver</a>
     </fieldset>
 </form>
