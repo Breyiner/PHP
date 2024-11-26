@@ -27,31 +27,49 @@ echo "<pre>";
 print_r($_GET['id']);
 echo "</pre>";
 
+$usuario_id = $_GET['id'];
+
+// Consulta de usuario a traves del id
+$sqlUsuarios = "SELECT * FROM usuarios where id_usuario = $usuario_id";
+$conexionUsuarios = $conexion->prepare($sqlUsuarios);
+$conexionUsuarios->execute();
+$usuarios = $conexionUsuarios->fetchAll();
+
+// Consulta lenguajes a través del id
+$sqlEditLenguajes = "SELECT * FROM lenguaje_usuario where id_usuario=$usuario_id";
+$conexionEditLenguajes = $conexion->prepare($sqlEditLenguajes);
+$conexionEditLenguajes->execute();
+$editLenguajes = $conexionEditLenguajes->fetchAll();
+
+echo "<pre>";
+print_r($usuarios);
+print_r($editLenguajes);
+echo "</pre>";
 
 ?>
 
-<form action="" method="get">
+<form action="update.php" method="post">
     <fieldset>
         <legend>
             <h2>Prueba MySQL</h2>
         </legend>
         <label for="name">Nombre:
-            <input type="text" name="name" id="name" placeholder="Nombre">
+            <input type="text" name="name" id="name" placeholder="Nombre" value="<?= $usuarios[0]['nombre']?>">
         </label>
         <br>
         <br>
         <label for="lastName">Apellido:
-            <input type="text" name="lastName" id="lastName" placeholder="Apellido">
+            <input type="text" name="lastName" id="lastName" placeholder="Apellido" value="<?= $usuarios[0]['apellido']?>">
         </label>
         <br>
         <br>
         <label for="email">Correo:
-            <input type="text" name="email" id="email" placeholder="Correo">
+            <input type="text" name="email" id="email" placeholder="Correo" value="<?= $usuarios[0]['correo']?>">
         </label>
         <br>
         <br>
         <label for="fecha_nacimiento">Fecha de nacimiento:
-            <input type="date" name="fecha_nacimiento" id="fecha_nacimiento">
+            <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" value="<?= $usuarios[0]['fecha_nacimiento']?>">
         </label>
         <br>
         <br>
@@ -61,7 +79,11 @@ echo "</pre>";
                 <?php
                 foreach ($ciudades as $key => $value) {
                 ?>
-                    <option id="<?= $value['id_ciudad']?>" value="<?= $value['id_ciudad']?>">
+                    <option id="<?= $value['id_ciudad']?>" value="<?=$value['id_ciudad']?>" 
+                    <?php if ($value['id_ciudad'] == $usuarios[0]['id_ciudad']) 
+                    {?> 
+                        selected <?php 
+                    } ?>>
                         <?= $value['ciudad']?>
                     </option>
                 <?php
@@ -76,7 +98,11 @@ echo "</pre>";
                 foreach ($generos as $key => $value) {
                     ?>
                     <label for="genero_<?= $value['id_genero']?>">
-                        <input type="radio" name="id_genero" id="genero_<?= $value['id_genero']?>" value="<?= $value['id_genero']?>">
+                        <input type="radio" name="id_genero" id="genero_<?= $value['id_genero']?>" value="<?= $value['id_genero']?>" 
+                        <?php if ($usuarios[0]['id_genero'] == $value['id_genero']) 
+                        { 
+                            ?> checked <?php 
+                        } ?>>
                         <?= $value['genero']?>
                     </label>
                     <?php
@@ -87,18 +113,30 @@ echo "</pre>";
         <div>
             <label>Lenguajes que domina: </label>
             <?php
-                foreach ($lenguajes as $key => $value) {
+                foreach ($lenguajes as $key => $valor) {
                     ?>
                     <br>
-                    <label for="lenguaje_<?= $value['id_lenguaje']?>">
-                        <input type="checkbox" name="id_lenguaje[]" id="lenguaje_<?= $value['id_lenguaje']?>" value="<?= $value['id_lenguaje']?>">
-                        <?= $value['lenguaje']?>
+                    <label for="lenguaje_<?= $valor['id_lenguaje']?>">
+                        <input type="checkbox" name="id_lenguaje[]" id="lenguaje_<?= $valor['id_lenguaje']?>" value="<?= $valor['id_lenguaje']?>"
+                        <?php
+                        foreach ($editLenguajes as $key => $value) {
+                            if ($valor['id_lenguaje'] == $value['id_lenguaje']) {
+                                ?>
+                                checked
+                                <?php
+                            }
+                        }
+                        ?>
+                        >
+                        <?= $valor['lenguaje']?>
                     </label>
                     <?php
                 }
             ?>
         </div>
         <br>
-        <input type="submit" value="Enviar">
+        <a href="update.php?id=<?=$usuario_id?>">
+            <input type="submit" value="Enviar">
+        </a>
     </fieldset>
 </form>
