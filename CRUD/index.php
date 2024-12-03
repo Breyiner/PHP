@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="CSS/style.css">
 
 <?php
 
@@ -31,22 +31,22 @@ $lenguajes = $conexionLenguajes->fetchAll();
 
 ?>
 
-<form action="controlador.php" method="post" class="formulario">
+<form action="prueba.php" method="post" class="formulario">
     <fieldset class="formulario__contorno">
         <legend class="formulario__container-tittle">
             <h2 class="formulario__titulo">Formulario CRUD</h2>
         </legend>
-        <input type="text" name="name" id="name" placeholder="Nombre" class="formulario__input">
+        <input type="text" name="name" id="name" placeholder="Nombre" class="formulario__input" required pattern="^[a-zA-Z]{2,}$" autocomplete="off">
         <br>
         <br>
-        <input type="text" name="lastName" id="lastName" placeholder="Apellido" class="formulario__input">
+        <input type="text" name="lastName" id="lastName" placeholder="Apellido" class="formulario__input" required pattern="^[a-zA-Z]{2,}$" autocomplete="off">
         <br>
         <br>
-        <input type="text" name="email" id="email" placeholder="Correo" class="formulario__input">
+        <input type="email" name="email" id="email" placeholder="Correo" class="formulario__input" required autocomplete="off">
         <br>
         <br>
         <label for="fecha_nacimiento">Fecha de Nacimiento:
-            <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" class="formulario__date">
+            <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" class="formulario__date" required>
         </label>
         <br>
         <br>

@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="CSS/style.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
+
 <?php
 require("conexion.php");
 $db = new Conexion();
@@ -11,34 +14,43 @@ $usuarios = $conexionUsuarios->fetchAll();
 <?php
 if (empty($usuarios)) {
     ?>
-    <h1>No se han ingresado registros</h1>
+    <h1 class="message-help">No se han ingresado registros</h1>
     <?php
 }else {
     ?>
-    <table border="1">
-    <tr>
-        <th>ID</th>
-        <th>Nombres</th>
-        <th>Apellidos</th>
-        <th>Correo</th>
-        <th>Fecha De Nacimiento</th>
-        <th>Genero</th>
-        <th>Ciudad</th>
+    <table class="tabla">
+    <tr class="tabla__encabezado">
+        <th class="tabla__encabezado-item">ID</th>
+        <th class="tabla__encabezado-item">Nombres</th>
+        <th class="tabla__encabezado-item">Apellidos</th>
+        <th class="tabla__encabezado-item">Correo</th>
+        <th class="tabla__encabezado-item">Fecha De Nacimiento</th>
+        <th class="tabla__encabezado-item">Genero</th>
+        <th class="tabla__encabezado-item">Ciudad</th>
+        <th colspan="2" class="tabla__encabezado-item">Opciones</th>
     </tr>
 
     <?php
     foreach ($usuarios as $key => $value) {
     ?>
-    <tr>
-        <td><?=$value['id_usuario'];?></td>
-        <td><?=$value['nombre'];?></td>
-        <td><?=$value['apellido'];?></td>
-        <td><?=$value['correo'];?></td>
-        <td><?=$value['fecha_nacimiento'];?></td>
-        <td><?=$value['genero'];?></td>
-        <td><?=$value['ciudad'];?></td>
-        <td><a href="editar.php?id=<?=$value['id_usuario']?>">Editar</a></td>
-        <td><a href="eliminar.php?id=<?=$value['id_usuario']?>">Eliminar</a></td>
+    <tr class="tabla__contenido">
+        <td class="tabla__contenido-item"><?=$value['id_usuario'];?></td>
+        <td class="tabla__contenido-item"><?=$value['nombre'];?></td>
+        <td class="tabla__contenido-item"><?=$value['apellido'];?></td>
+        <td class="tabla__contenido-item"><?=$value['correo'];?></td>
+        <td class="tabla__contenido-item"><?=$value['fecha_nacimiento'];?></td>
+        <td class="tabla__contenido-item"><?=$value['genero'];?></td>
+        <td class="tabla__contenido-item"><?=$value['ciudad'];?></td>
+        <td class="tabla__contenido-item">
+            <a href="editar.php?id=<?=$value['id_usuario']?>" class="btn-action btn-action--update">
+                <i class="ri-edit-box-fill"></i>
+            </a>
+        </td>
+        <td class="tabla__contenido-item">
+            <a href="eliminar.php?id=<?=$value['id_usuario']?>" class="btn-action btn-action--delete">
+                <i class="ri-delete-bin-5-fill"></i>
+            </a>
+        </td>
     </tr>
     <?php
     }
@@ -47,4 +59,4 @@ if (empty($usuarios)) {
 <?php
 }
 ?>
-<a href="index.php">Nuevo</a>
+<a href="index.php" class="button">Nuevo</a>

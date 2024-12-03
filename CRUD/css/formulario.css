@@ -1,0 +1,101 @@
+.formulario {
+    width: max-content;
+    height: max-content;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #1c1e33;
+    padding: 20px;
+    border-radius: 10px;
+    color: #fff;
+    box-shadow: 0 0 15px #7acdd58b;
+}
+
+.formulario__contorno {
+    border: 0;
+    border: 2px solid #4aa5cc;
+    border-radius: 10px;
+}
+
+.formulario__container-tittle {
+    display: block;
+    padding: 0;
+    background-color: #4aa5cc;
+    text-align: center;
+    padding: -5px 0;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.formulario__titulo {
+    color: #fff;
+    margin: 5px 10px;
+}
+
+.formulario__input {
+    width: 100%;
+    border: 0;
+    outline: none;
+    border-bottom: 2px solid #4aa5cc;
+    background-color: transparent;
+    padding-bottom: 3px;
+    color: #fff;
+}
+
+/* .formulario__input:focus {
+    border-color: aqua;
+    transition: 0.5s ease-in-out;
+} */
+
+.formulario__date {
+    border: 0;
+    outline: none;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.formulario__date:hover {
+    cursor: pointer;
+    background-color: #c6c6c6;
+}
+
+.formulario__cities {
+    border: 0;
+    outline: none;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.formulario__cities:hover {
+    cursor: pointer;
+    background-color: #c6c6c6;
+}
+
+.formulario__city {
+    border: 0;
+    outline: none;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.formulario__genero {
+    display: block;
+}
+
+.formulario__boton {
+    border: 0;
+    background-color: #4aa5cc;
+    color: #fff;
+    width: 100%;
+    border-radius: 10px;
+    padding: 5px 0;
+    font-size: 1.1rem;
+    transition: 0.3s ease-out;
+}
+
+.formulario__boton:hover {
+    cursor: pointer;
+    background-color: #367590;
+}
