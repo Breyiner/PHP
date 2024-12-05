@@ -1,0 +1,19 @@
+.container-error {
+    display: flex;
+    align-items: center;
+    width: max-content;
+    height: 50px;
+    background-color: #ff8484;
+    padding: 0 15px;
+    gap: 20px;
+    border-radius: 10px;
+}
+
+.container-error__mensaje {
+    color: #6c2f2f;
+}
+
+.container-error__icono {
+    font-size: 1.3rem;
+    color: rgb(200, 0, 0);
+}

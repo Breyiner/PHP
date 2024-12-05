@@ -31,22 +31,22 @@ $lenguajes = $conexionLenguajes->fetchAll();
 
 ?>
 
-<form action="prueba.php" method="post" class="formulario">
+<form action="controlador.php" method="post" class="formulario">
     <fieldset class="formulario__contorno">
         <legend class="formulario__container-tittle">
             <h2 class="formulario__titulo">Formulario CRUD</h2>
         </legend>
-        <input type="text" name="name" id="name" placeholder="Nombre" class="formulario__input" required pattern="^[a-zA-Z]{2,}$" autocomplete="off">
+        <input type="text" name="name" id="name" placeholder="Nombre" class="formulario__input" required pattern="^[a-zA-Z\s]{2,}$" autocomplete="off">
         <br>
         <br>
-        <input type="text" name="lastName" id="lastName" placeholder="Apellido" class="formulario__input" required pattern="^[a-zA-Z]{2,}$" autocomplete="off">
+        <input type="text" name="lastName" id="lastName" placeholder="Apellido" class="formulario__input" required pattern="^[a-zA-Z\s]{2,}$" autocomplete="off">
         <br>
         <br>
         <input type="email" name="email" id="email" placeholder="Correo" class="formulario__input" required autocomplete="off">
         <br>
         <br>
         <label for="fecha_nacimiento">Fecha de Nacimiento:
-            <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" class="formulario__date" required>
+            <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" class="formulario__date" required max="<?=date('Y')?>-<?=date('m')?>-<?=date('d')?>">
         </label>
         <br>
         <br>
@@ -69,7 +69,7 @@ $lenguajes = $conexionLenguajes->fetchAll();
             foreach ($generos as $key => $value) {
                 ?>
                     <label for="genero_<?= $value['id_genero']?>" class="formulario__genero">
-                    <input type="radio" name="id_genero" id="genero_<?= $value['id_genero']?>" value="<?= $value['id_genero']?>">
+                    <input type="radio" name="id_genero" id="genero_<?= $value['id_genero']?>" value="<?= $value['id_genero']?>" required>
                     <?= $value['genero']?>
                 </label>
                 <?php

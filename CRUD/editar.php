@@ -41,23 +41,23 @@ $editLenguajes = $conexionEditLenguajes->fetchAll();
 
 ?>
 
-<form action="prueba.php" method="post" class="formulario">
+<form action="update.php" method="post" class="formulario">
     <fieldset class="formulario__contorno">
         <legend class="formulario__container-tittle">
             <h2 class="formulario__titulo">Editar Datos</h2>
         </legend>
         <input type="hidden" name="id_usuario" value="<?=$usuario_id?>">
-        <input type="text" name="name" id="name" placeholder="Nombre" value="<?= $usuarios['nombre']?>" class="formulario__input">
+        <input type="text" name="name" id="name" placeholder="Nombre" value="<?= $usuarios['nombre']?>" class="formulario__input" required pattern="^[a-zA-Z\s]{2,}$" autocomplete="off">
         <br>
         <br>
-        <input type="text" name="lastName" id="lastName" placeholder="Apellido" value="<?= $usuarios['apellido']?>" class="formulario__input">
+        <input type="text" name="lastName" id="lastName" placeholder="Apellido" value="<?= $usuarios['apellido']?>" class="formulario__input" required pattern="^[a-zA-Z\s]{2,}$" autocomplete="off">
         <br>
         <br>
-        <input type="text" name="email" id="email" placeholder="Correo" value="<?= $usuarios['correo']?>" class="formulario__input">
+        <input type="email" name="email" id="email" placeholder="Correo" value="<?= $usuarios['correo']?>" class="formulario__input" required autocomplete="off">
         <br>
         <br>
         <label for="fecha_nacimiento">Fecha de nacimiento:
-            <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" value="<?= $usuarios['fecha_nacimiento']?>" class="formulario__date">
+            <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" value="<?= $usuarios['fecha_nacimiento']?>" class="formulario__date" required max="<?=date('Y')?>-<?=date('m')?>-<?=date('d')?>">
         </label>
         <br>
         <br>
@@ -90,7 +90,7 @@ $editLenguajes = $conexionEditLenguajes->fetchAll();
                     { 
                         ?> checked <?php 
                     } 
-                    ?>>
+                    ?> required>
                     <?= $value['genero']?>
                 </label>
                 <?php
