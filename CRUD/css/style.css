@@ -3,6 +3,12 @@
 @import url(vista_admin.css);
 @import url(error_correo.css);
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     background-color: #1c1e33;
     display: flex;
@@ -23,4 +29,3 @@ body {
     background-color: #4aa5cc;
     border-radius: 10px;
 }
-

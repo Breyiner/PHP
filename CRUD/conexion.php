@@ -4,7 +4,7 @@ class Conexion
 {
     private $conexion;
     private $host = "localhost";
-    private $db = "adso_2894667";
+    private $db = "breyner";
     private $usuario = "breyner";
     private $contrasena = "051207";
 
